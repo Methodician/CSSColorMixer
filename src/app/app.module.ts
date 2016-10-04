@@ -3,7 +3,26 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+import { AngularFireModule, AuthMethods, AuthProviders } from 'angularfire2';
+
 import { AppComponent } from './app.component';
+
+export const firebaseConfig = {
+    apiKey: "AIzaSyAc4xI67Kr3-lqqsSTKXvKGsVF6flq-Zi8",
+    authDomain: "css-colormixer.firebaseapp.com",
+    databaseURL: "https://css-colormixer.firebaseio.com",
+    storageBucket: "css-colormixer.appspot.com",
+    messagingSenderId: "1057907796380"
+}
+
+export const authConfig = {
+  provider: AuthProviders.Google,
+  method: AuthMethods.Popup
+}
+/*export const twitterAuthConfig = {
+  provider: AuthProviders.Twitter,
+  method: AuthMethods.Redirect
+}*/
 
 @NgModule({
   declarations: [
@@ -11,6 +30,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig, authConfig),
     FormsModule,
     HttpModule
   ],
