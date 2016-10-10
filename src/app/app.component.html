@@ -1,10 +1,30 @@
-<div> {{ (af.auth | async)?.uid }} </div>
-<button (click)="loginGoogle()">Login with Google</button>
-<button (click)="loginFacebook()">Login with Facebook</button>
-<button (click)="loginTwitter()">Login with Twitter</button>
-<button (click)="logout()">Logout</button>
-<ul *ngIf="items">
-  <li class="text" *ngFor="let item of items | async">
-    {{item.$value}}
-  </li>
-</ul>
+<div class="col-sm-6">
+  <div class="row">
+    Color 1
+    <input (change)="updateC1()" [(ngModel)]="c1.R" type="number">
+    <input (change)="updateC1()" [(ngModel)]="c1.G" type="number">
+    <input (change)="updateC1()" [(ngModel)]="c1.B" type="number">
+  </div>
+  <div id="colorBox1"></div>
+  <br>
+  Color 2
+  <input (change)="updateC2()" [(ngModel)]="c2.R" type="number">
+  <input (change)="updateC2()" [(ngModel)]="c2.G" type="number">
+  <input (change)="updateC2()" [(ngModel)]="c2.B" type="number">
+</div>
+
+<div class="col-sm-6">
+  <div> {{ (af.auth | async)?.uid }} </div>
+  <button (click)="loginGoogle()">Login with Google</button>
+  <button (click)="loginFacebook()">Login with Facebook</button>
+  <button (click)="loginTwitter()">Login with Twitter</button>
+  <button (click)="logout()">Logout</button>
+  <ul *ngIf="items">
+    <li class="text" *ngFor="let item of items | async">
+      {{item.$value}}
+    </li>
+  </ul>
+</div>
+
+
+
