@@ -1,10 +1,15 @@
 <h1>Colour Palette</h1>
 
 <div class="row colorPicksContainer">
-    <div *ngFor="let c of colors" class="colorPick"
-            [style.background-color]="c.rgb"
+    <div *ngFor="let c of colors" class="colorPick">
+        <label>{{ c.hex }}</label>
+        <div class="colorCircle"
+            [style.background-color]="c.hex"
             (click)="pickColor(c)">
+        </div>
+        <label>{{ c.rgb.slice(3) }}</label>
     </div>
+    
 </div>
 
 

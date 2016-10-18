@@ -1,10 +1,11 @@
 .colorPick{
-    height: 55px;
-    width: 55px;
     display: inline-block;
     margin: 8px;
+}
+.colorCircle {
+    height: 55px;
+    width: 55px;
     border-radius: 50%;
-    /*border: white solid 3px;*/
 }
 
 .colorPicksContainer{
