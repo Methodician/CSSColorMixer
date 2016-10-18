@@ -1,30 +1,20 @@
-<div class="col-sm-6">
-  <div class="row">
-    Color 1
-    <input (change)="updateC1()" [(ngModel)]="c1.R" type="number">
-    <input (change)="updateC1()" [(ngModel)]="c1.G" type="number">
-    <input (change)="updateC1()" [(ngModel)]="c1.B" type="number">
-  </div>
-  <div id="colorBox1"></div>
-  <br>
-  Color 2
-  <input (change)="updateC2()" [(ngModel)]="c2.R" type="number">
-  <input (change)="updateC2()" [(ngModel)]="c2.G" type="number">
-  <input (change)="updateC2()" [(ngModel)]="c2.B" type="number">
-</div>
-
-<div class="col-sm-6">
-  <div> {{ (af.auth | async)?.uid }} </div>
-  <button (click)="loginGoogle()">Login with Google</button>
-  <button (click)="loginFacebook()">Login with Facebook</button>
-  <button (click)="loginTwitter()">Login with Twitter</button>
-  <button (click)="logout()">Logout</button>
-  <ul *ngIf="items">
+<div class="row">
+	<div> {{ (af.auth | async)?.uid }} </div>
+	<button (click)="loginGoogle()" class="btn btn-primary">Login with Google</button>
+	<button (click)="loginFacebook()" class="btn btn-primary">Login with Facebook</button>
+	<button (click)="loginTwitter()" class="btn btn-primary">Login with Twitter</button>
+	<button (click)="logout()" class="btn btn-primary">Logout</button>
+	<!--<ul *ngIf="items">
     <li class="text" *ngFor="let item of items | async">
       {{item.$value}}
     </li>
-  </ul>
+  </ul>-->
 </div>
 
-
-
+<div style="margin: auto;">
+	<div class="row" id="paletteContainer">
+		<div class="col-sm-8 col-sm-offset-2">
+			<colour-palette></colour-palette>
+		</div>
+	</div>
+</div>

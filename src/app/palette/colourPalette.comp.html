@@ -1,0 +1,19 @@
+<h1>Colour Palette</h1>
+
+<div class="row colorPicksContainer">
+    <div *ngFor="let c of colors" class="colorPick"
+            [style.background-color]="c.rgb"
+            (click)="pickColor(c)">
+    </div>
+</div>
+
+
+<div class="row" id="colorPoolContainer">
+    <div (click)="saveColor()" id="colorPool"></div>
+</div>
+<div class="row" style="padding: 0 25%;">
+    <button (click)="setAvg()" class="btn btn-primary">Mix (avg)</button>
+    <button (click)="setAdd()" class="btn btn-primary">Combine (add)</button>
+    Current method: {{ method }}
+    <button (click)="resetPool()" class="btn btn-primary">Reset Pool</button>
+</div>

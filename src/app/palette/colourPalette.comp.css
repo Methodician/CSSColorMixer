@@ -1,0 +1,26 @@
+.colorPick{
+    height: 55px;
+    width: 55px;
+    display: inline-block;
+    margin: 8px;
+    border-radius: 50%;
+    /*border: white solid 3px;*/
+}
+
+.colorPicksContainer{
+    padding: 0 25%;
+}
+
+#colorPoolContainer{
+    padding: 0 25%;
+}
+
+#colorPool{
+    height: 150px;
+    width: 300px;
+    margin: 20px;
+    border-radius: 50%;
+    /*border: white solid 9px;*/
+}
+
+
