@@ -14,7 +14,7 @@
 				{{ showHex ? poolColor.hex : poolColor.rgb.slice(3) }}
 			</div>
 			<div class="row colorPicksContainer">
-				<div *ngFor="let c of colors" class="colorPick">
+				<div *ngFor="let c of colors | async" class="colorPick">
 					<label>{{ showHex ? c.hex : c.rgb.slice(3) }}</label>
 					<div class="colorCircle" [style.background-color]="c.hex" (click)="pickColor(c)">
 					</div>

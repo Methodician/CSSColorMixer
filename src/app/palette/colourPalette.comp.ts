@@ -11,7 +11,7 @@ import { rgbColor, IrgbColor } from '../../models/colorModels';
 })
 export class ColourPaletteComp implements OnInit {
 
-  //items: FirebaseListObservable<any[]>;
+
   method: string = 'Average';
   averageOn = true;
   addOn = false;
@@ -29,20 +29,36 @@ export class ColourPaletteComp implements OnInit {
 
   poolColor: IrgbColor = new rgbColor(127, 127, 127);
 
-  colors: IrgbColor[] = [];
+  //colors: IrgbColor[] = [];
+  colors: FirebaseListObservable<any[]>;
 
   constructor(public af: AngularFire) {
     //this.items = af.database.list('items');
+    this.colors = af.database.list('colors');
   }
 
   ngOnInit() {
     //this.setRgbPicks();
-    this.initializeColors();
+    //this.initializeColors();
     this.setElementColor('colorPool', this.poolColor);
+    this.colors.subscribe(c => {
+      if (!c[0])
+        this.initializeDbColors();
+    });
+  }
+
+  initializeDbColors() {
+
+    this.colors.push(this.red);
+    //this.colors.push(this.yellow);
+    this.colors.push(this.green);
+    this.colors.push(this.blue);
+    this.colors.push(this.white);
+    this.colors.push(this.black);
   }
 
   clearColors() {
-    this.initializeColors();
+    this.colors.remove();
   }
 
   toggleHex() {
@@ -50,7 +66,7 @@ export class ColourPaletteComp implements OnInit {
   }
 
   initializeColors() {
-    this.colors = [];
+    //this.colors = [];
     this.colors.push(this.red);
     //this.colors.push(this.yellow);
     this.colors.push(this.green);
