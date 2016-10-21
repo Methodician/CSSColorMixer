@@ -1,24 +1,25 @@
-<h1>Colour Palette</h1>
-
-<div class="row colorPicksContainer">
-    <div *ngFor="let c of colors" class="colorPick">
-        <label>{{ c.hex }}</label>
-        <div class="colorCircle"
-            [style.background-color]="c.hex"
-            (click)="pickColor(c)">
-        </div>
-        <label>{{ c.rgb.slice(3) }}</label>
-    </div>
-    
-</div>
-
-
-<div class="row" id="colorPoolContainer">
-    <div (click)="saveColor()" id="colorPool"></div>
-</div>
-<div class="row" style="padding: 0 25%;">
-    <button (click)="setAvg()" class="btn btn-primary">Mix (avg)</button>
-    <button (click)="setAdd()" class="btn btn-primary">Combine (add)</button>
-    Current method: {{ method }}
-    <button (click)="resetPool()" class="btn btn-primary">Reset Pool</button>
+<div style="margin: auto;">
+	<div class="row" id="paletteContainer">
+		<div class="col-sm-2" style="margin-top: 67px;">
+			<button (click)="toggleAvg()" class="btn" [class.btn-primary]="!averageOn" [class.btn-success]="averageOn">Mix (avg)</button>
+			<button (click)="toggleAdd()" class="btn" [class.btn-primary]="!addOn" [class.btn-success]="addOn">Combine (add)</button>
+			<button (click)="toggleMinus()" class="btn" [class.btn-primary]="!minusOn" [class.btn-success]="minusOn">Subtract (minus)</button>
+			<button (click)="resetPool()" class="btn btn-primary">Reset Pool</button>
+			<button (click)="clearColors()" class="btn btn-primary">Clear Colors</button>
+			<button (click)="toggleHex()" class="btn btn-info">Toggle {{ showHex ? 'RGB' : 'Hex' }}</button>
+		</div>
+		<div class="col-sm-8">
+			<div class="row" id="colorPoolContainer" style="text-align: center;">
+				<div (click)="saveColor()" id="colorPool"></div>
+				{{ showHex ? poolColor.hex : poolColor.rgb.slice(3) }}
+			</div>
+			<div class="row colorPicksContainer">
+				<div *ngFor="let c of colors" class="colorPick">
+					<label>{{ showHex ? c.hex : c.rgb.slice(3) }}</label>
+					<div class="colorCircle" [style.background-color]="c.hex" (click)="pickColor(c)">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
