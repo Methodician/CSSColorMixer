@@ -6,16 +6,16 @@ import { HttpModule } from '@angular/http';
 import { AngularFireModule, AuthMethods, AuthProviders } from 'angularfire2';
 
 import { AppComponent } from './app.component';
-import { ColourPaletteComp } from './palette/colourPalette.comp';
+import { PoolComp } from './pool/pool.comp';
 
 
 
 export const firebaseConfig = {
-    apiKey: "AIzaSyAc4xI67Kr3-lqqsSTKXvKGsVF6flq-Zi8",
-    authDomain: "css-colormixer.firebaseapp.com",
-    databaseURL: "https://css-colormixer.firebaseio.com",
-    storageBucket: "css-colormixer.appspot.com",
-    messagingSenderId: "1057907796380"
+  apiKey: "AIzaSyAc4xI67Kr3-lqqsSTKXvKGsVF6flq-Zi8",
+  authDomain: "css-colormixer.firebaseapp.com",
+  databaseURL: "https://css-colormixer.firebaseio.com",
+  storageBucket: "css-colormixer.appspot.com",
+  messagingSenderId: "1057907796380"
 }
 
 export const authConfig = {
@@ -29,7 +29,7 @@ export const authConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent, ColourPaletteComp
+    AppComponent, PoolComp
   ],
   imports: [
     BrowserModule,

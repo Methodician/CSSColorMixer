@@ -5,11 +5,11 @@ import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'a
 import { rgbColor, IrgbColor } from '../../models/colorModels';
 
 @Component({
-  selector: 'colour-palette',
-  templateUrl: './colourPalette.comp.html',
-  styleUrls: ['./colourPalette.comp.css']
+  selector: 'pool',
+  templateUrl: './pool.comp.html',
+  styleUrls: ['./pool.comp.css']
 })
-export class ColourPaletteComp implements OnInit {
+export class PoolComp implements OnInit {
 
 
   method: string = 'Average';
