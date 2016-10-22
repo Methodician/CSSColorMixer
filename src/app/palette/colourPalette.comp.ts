@@ -102,8 +102,8 @@ export class ColourPaletteComp implements OnInit {
   }
 
   subtractColors(c1: IrgbColor, c2: IrgbColor): IrgbColor {
-    let r = this.subtract(c1.r, this.averageOn ? this.average(c1.r, c2.r) : c2.r));
-    let g = this.subtract(c1.g, this.averageOn ? this.average(c1.g, c2.g) : c2.g));
+    let r = this.subtract(c1.r, this.averageOn ? this.average(c1.r, c2.r) : c2.r);
+    let g = this.subtract(c1.g, this.averageOn ? this.average(c1.g, c2.g) : c2.g);
     let b = this.subtract(c1.b, this.averageOn ? this.average(c1.b, c2.b) : c2.b);
     return new rgbColor(r, g, b);
   }
