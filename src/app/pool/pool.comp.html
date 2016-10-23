@@ -14,14 +14,13 @@
 				<!--(dropped)="pickColor($event)" -->
 				<div class="row" id="undoRow">
 					<div class="row">
-						<label class="pull-left">{{ historyIndex == 0 ? '' : historyIndex }}</label>
-						<label class="pull-right">{{ colorPoolHistory.length == 1 ? '' : colorPoolHistory.length - 1 }}</label>
+						<label style="margin-right: 130px;">{{ historyIndex == 0 ? '' : historyIndex }}</label>
+						<label style="margin-left: 130px;">{{ colorPoolHistory.length == 1 ? '' : colorPoolHistory.length - 1 }}</label>
 					</div>
 					<div class="row">
-						<i (click)="undo()" class="fa fa-undo pull-left"></i>
-						<i (click)="redo()" class="fa fa-repeat pull-right"></i>
+						<i (click)="undo()" style="margin-right: 130px;" class="fa fa-undo"></i>
+						<i (click)="redo()" style="margin-left: 130px;" class="fa fa-repeat"></i>
 					</div>
-
 				</div>
 				<div makeDroppable (dragEnter)="enterPool($event)" (dragLeave)="leavePool($event)" (click)="saveColor()" id="colorPool"></div>
 				{{ showHex ? poolColor.hex : poolColor.rgb.slice(3) }}
