@@ -8,6 +8,9 @@ import { AngularFireModule, AuthMethods, AuthProviders } from 'angularfire2';
 import { AppComponent } from './app.component';
 import { PoolComp } from './pool/pool.comp';
 
+import { MakeDraggable } from './shared/makeDraggable.dir';
+import { MakeDroppable } from './shared/makeDroppable.dir';
+
 
 
 export const firebaseConfig = {
@@ -22,14 +25,10 @@ export const authConfig = {
   provider: AuthProviders.Google,
   method: AuthMethods.Popup
 }
-/*export const twitterAuthConfig = {
-  provider: AuthProviders.Twitter,
-  method: AuthMethods.Redirect
-}*/
 
 @NgModule({
   declarations: [
-    AppComponent, PoolComp
+    AppComponent, PoolComp, MakeDraggable, MakeDroppable
   ],
   imports: [
     BrowserModule,

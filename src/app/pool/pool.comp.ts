@@ -18,6 +18,9 @@ export class PoolComp implements OnInit {
   minusOn = false;
   poolSet = false;
   showHex = true;
+  //inInnerPool = false;
+  //inPool = false;
+
 
   red: IrgbColor = new rgbColor(255, 0, 0);
   //yellow: IrgbColor = new rgbColor(255,255,0);
@@ -28,24 +31,36 @@ export class PoolComp implements OnInit {
 
 
   poolColor: IrgbColor = new rgbColor(127, 127, 127);
+  draggingColor: IrgbColor = null;
+  colorPoolHistory: IrgbColor[] = [];
 
   //colors: IrgbColor[] = [];
-  colors: FirebaseListObservable<any[]>;
+  colors: FirebaseListObservable<IrgbColor[]>;
 
   constructor(public af: AngularFire) {
     //this.items = af.database.list('items');
-    this.colors = af.database.list('colors');
+
   }
 
   ngOnInit() {
-    //this.setRgbPicks();
-    //this.initializeColors();
+    this.colors = this.af.database.list('colors');
     this.setElementColor('colorPool', this.poolColor);
+    this.colorPoolHistory.push(this.poolColor);
     this.colors.subscribe(c => {
       if (!c[0])
         this.initializeDbColors();
     });
+
+    /*    jQuery('#testjq').css('background-color', 'red');
+    
+        jQuery('#testjq').bind('touchstart', (e) => {
+          this.moveThing(e);
+        });
+        jQuery('#testjq').bind('touchmove', (e) => {
+          this.moveThing(e);
+        })*/
   }
+
 
   initializeDbColors() {
 
@@ -60,25 +75,31 @@ export class PoolComp implements OnInit {
   clearColors() {
     this.colors.remove();
   }
-
   toggleHex() {
     this.showHex = !this.showHex;
   }
 
-  initializeColors() {
-    //this.colors = [];
-    this.colors.push(this.red);
-    //this.colors.push(this.yellow);
-    this.colors.push(this.green);
-    this.colors.push(this.blue);
-    this.colors.push(this.white);
-    this.colors.push(this.black);
+  enterPool(e: any) {
+    this.pickColor(this.draggingColor);
+    console.log('color picked');
+  }
+  leavePool(e: any) {
+    let len = this.colorPoolHistory.length;
+    this.colorPoolHistory.pop();
+    this.poolSet = false;
+    this.pickColor(this.colorPoolHistory[len - 2]);
+    this.colorPoolHistory.pop();
+
+    console.log('color reverted');
+    console.log(this.colorPoolHistory);
 
   }
-
-  setElementColor(elementId: string, color: IrgbColor) {
-    document.getElementById(elementId)
-      .style.backgroundColor = color.rgb;
+  startColorDrag(e: any) {
+    let color: IrgbColor = JSON.parse(e);
+    this.draggingColor = color;
+  }
+  endColorDrag() {
+    this.draggingColor = null;
   }
 
   pickColor(color: IrgbColor) {
@@ -98,7 +119,7 @@ export class PoolComp implements OnInit {
       this.setElementColor('colorPool', newColor);
       this.poolColor = newColor;
     }
-
+    this.colorPoolHistory.push(this.poolColor);
   }
 
   subtractColors(c1: IrgbColor, c2: IrgbColor): IrgbColor {
@@ -117,7 +138,6 @@ export class PoolComp implements OnInit {
       return 0;
     return combo;
   }
-
   addColors(c1: IrgbColor, c2: IrgbColor): IrgbColor {
     let r = this.combine(c1.r, this.averageOn ? this.average(c1.r, c2.r) : c2.r);
     let g = this.combine(c1.g, this.averageOn ? this.average(c1.g, c2.g) : c2.g);
@@ -130,14 +150,12 @@ export class PoolComp implements OnInit {
       return 255;
     else return combo;
   }
-
   mixColors(c1: IrgbColor, c2: IrgbColor): IrgbColor {
     let r = this.average(c1.r, c2.r);
     let g = this.average(c1.g, c2.g);
     let b = this.average(c1.b, c2.b);
     return new rgbColor(r, g, b);
   }
-
   average(a: number, b: number) {
     return Math.round((a + b) / 2);
   }
@@ -162,6 +180,10 @@ export class PoolComp implements OnInit {
   saveColor() {
     this.colors.push(this.poolColor);
   }
+  setElementColor(elementId: string, color: IrgbColor) {
+    document.getElementById(elementId)
+      .style.backgroundColor = color.rgb;
+  }
 
   resetPool() {
     let freshPool = new rgbColor(127, 127, 127);
@@ -169,36 +191,5 @@ export class PoolComp implements OnInit {
     this.setElementColor('colorPool', freshPool);
     this.poolSet = false;
   }
-  /*  updateC1(){
-      document.getElementById('colorBox1')
-        .style.backgroundColor =
-        'rgb(' + this.c1.R + ',' + this.c1.G + ',' + this.c1.B + ')';
-  
-        this.mixColors();
-      //let cb = document.getElementById('colorBox1');
-      //cb.style.backgroundColor = 'rgb(' + this.c1.R + ',' + this.c1.G + ',' + this.c1.B + ')';
-    }*/
-
-  /*  updateC2(){
-      document.getElementById('colorBox2')
-        .style.backgroundColor =
-        'rgb(' + this.c2.R + ',' + this.c2.G + ',' + this.c2.B + ')';
-  
-        this.mixColors();
-      //let cb = document.getElementById('colorBox1');
-      //cb.style.backgroundColor = 'rgb(' + this.c1.R + ',' + this.c1.G + ',' + this.c1.B + ')';
-    }*/
-
-  /*  mixColors(){
-      let cR = Math.round(( this.c1.R + this.c2.R ) / 2);
-      let cG = Math.round(( this.c1.G + this.c2.G ) / 2);
-      let cB = Math.round(( this.c1.B + this.c2.B ) / 2);
-      this.mixedColor.R = cR;
-      this.mixedColor.G = cG;
-      this.mixedColor.B = cB;
-      document.getElementById('mixedColorBox')
-        .style.backgroundColor =
-        'rgb(' + cR + ',' + cG + ',' + cB + ')';
-    }*/
 
 }

@@ -7,16 +7,20 @@
 			<button (click)="resetPool()" class="btn btn-primary">Reset Pool</button>
 			<button (click)="clearColors()" class="btn btn-primary">Clear Colors</button>
 			<button (click)="toggleHex()" class="btn btn-info">Toggle {{ showHex ? 'RGB' : 'Hex' }}</button>
+			<!--<div draggable="true" class="colorCircle" id="testjq" style="position: absolute; vertical-align: top;"></div>-->
 		</div>
 		<div class="col-sm-8">
 			<div class="row" id="colorPoolContainer" style="text-align: center;">
-				<div (click)="saveColor()" id="colorPool"></div>
+				<!--(dropped)="pickColor($event)" -->
+				<div makeDroppable (dragEnter)="enterPool($event)" (dragLeave)="leavePool($event)" (click)="saveColor()" id="colorPool"></div>
 				{{ showHex ? poolColor.hex : poolColor.rgb.slice(3) }}
 			</div>
 			<div class="row colorPicksContainer">
-				<div *ngFor="let c of colors | async" class="colorPick">
-					<label>{{ showHex ? c.hex : c.rgb.slice(3) }}</label>
-					<div class="colorCircle" [style.background-color]="c.hex" (click)="pickColor(c)">
+				<div *ngFor="let c of colors | async" (dragStart)="startColorDrag($event)" (dragEnd)="endColorDrag()" makeDraggable [makeDraggable]="c"
+					class="colorPick" id="{{ c.$key }}">
+					<div>
+						<label>{{ showHex ? c.hex : c.rgb.slice(3) }}</label>
+						<div class="colorCircle" [style.background-color]="c.hex" (click)="pickColor(c)"></div>
 					</div>
 				</div>
 			</div>
