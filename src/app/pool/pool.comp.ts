@@ -18,6 +18,8 @@ export class PoolComp implements OnInit {
   minusOn = false;
   poolSet = false;
   showHex = true;
+  historyIndex = 0;
+  colorHistorical = false;
   //inInnerPool = false;
   //inPool = false;
 
@@ -79,7 +81,42 @@ export class PoolComp implements OnInit {
     this.showHex = !this.showHex;
   }
 
+  undo() {
+    if (this.colorPoolHistory.length > 1) {
+      if (this.historyIndex < 1) {
+        let len = this.colorPoolHistory.length;
+        this.historyIndex = len - 2
+        this.colorHistorical = true;
+      } else if (this.historyIndex > 0) {
+        this.historyIndex--;
+      }
+
+      let color = this.colorPoolHistory[this.historyIndex];
+      this.poolSet = false;
+      this.pickColor(color);
+      this.colorPoolHistory.pop();
+    }
+
+  }
+  redo() {
+    if (this.colorPoolHistory.length > 1) {
+      let len = this.colorPoolHistory.length;
+      if (this.historyIndex >= len - 1) {
+        this.historyIndex = 0
+        this.colorHistorical = true;
+      } else if (this.historyIndex <= len - 1) {
+        this.historyIndex++;
+      }
+
+      let color = this.colorPoolHistory[this.historyIndex];
+      this.poolSet = false;
+      this.pickColor(color);
+      this.colorPoolHistory.pop();
+    }
+  }
+
   enterPool(e: any) {
+    this.colorHistorical = false;
     this.pickColor(this.draggingColor);
     console.log('color picked');
   }
