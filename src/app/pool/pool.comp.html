@@ -22,7 +22,10 @@
 						<i (click)="redo()" style="margin-left: 130px;" class="fa fa-repeat"></i>
 					</div>
 				</div>
-				<div makeDroppable (dragEnter)="enterPool($event)" (dragLeave)="leavePool($event)" (click)="saveColor()" id="colorPool"></div>
+				<div id="colorPool" makeDroppable (dragEnter)="enterPool($event)" (dragLeave)="leavePool($event)" (click)="saveColor()">
+					<div id="colorPoolLeft"></div>
+					<div id="colorPoolRight"></div>
+				</div>
 				{{ showHex ? poolColor.hex : poolColor.rgb.slice(3) }}
 			</div>
 			<div class="row colorPicksContainer">

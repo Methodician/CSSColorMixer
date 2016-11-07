@@ -20,6 +20,7 @@ export class PoolComp implements OnInit {
   showHex = true;
   historyIndex = 0;
   colorHistorical = false;
+  colorsInitialized = false;
   //inInnerPool = false;
   //inPool = false;
 
@@ -49,7 +50,7 @@ export class PoolComp implements OnInit {
     this.setElementColor('colorPool', this.poolColor);
     this.colorPoolHistory.push(this.poolColor);
     this.colors.subscribe(c => {
-      if (!c[0])
+      if (!c[0] && !this.colorsInitialized)
         this.initializeDbColors();
     });
 
@@ -65,6 +66,7 @@ export class PoolComp implements OnInit {
 
 
   initializeDbColors() {
+    this.colorsInitialized = true;
 
     this.colors.push(this.red);
     //this.colors.push(this.yellow);
@@ -141,7 +143,10 @@ export class PoolComp implements OnInit {
 
   pickColor(color: IrgbColor) {
     if (!this.poolSet) {
-      this.setElementColor('colorPool', color);
+      if (this.draggingColor) {
+        this.setElementColor('colorPoolLeft', this.colorPoolHistory[this.colorPoolHistory.length - 2]);
+      }
+      this.setElementColor('colorPoolRight', color);
       this.poolColor = color;
       this.poolSet = true;
     }
@@ -153,7 +158,8 @@ export class PoolComp implements OnInit {
         newColor = this.addColors(this.poolColor, color);
       else if (this.minusOn)
         newColor = this.subtractColors(this.poolColor, color);
-      this.setElementColor('colorPool', newColor);
+      this.setElementColor('colorPoolRight', newColor);
+      this.setElementColor('colorPoolLeft', this.colorPoolHistory[this.colorPoolHistory.length - 1]);
       this.poolColor = newColor;
     }
     this.colorPoolHistory.push(this.poolColor);

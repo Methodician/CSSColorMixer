@@ -5,10 +5,11 @@
 .colorCircle {
     height: 55px;
     width: 55px;
-    border-radius: 50%;
+    border-radius: 40%;
 }
 
 .colorPicksContainer{
+    text-align: center;
     /*padding: 0 25%;*/
 }
 
@@ -20,12 +21,31 @@
     height: 150px;
     width: 300px;
     margin: 0 auto;
-    border-radius: 50%;
+    border-radius: 35px;
+    overflow: hidden;
     /*border: white solid 9px;*/
 }
+#colorPoolLeft{
+    /*background-color: green;*/
+    height: 100%;
+    width: 35%;
+    /*border-radius: 20% 0 0 20%;*/
+    float: left;
+    pointer-events: none;
+
+}
+#colorPoolRight{
+    /*background-color: red;*/
+    height: 100%;
+    width: 65%;
+    /*border-radius: 0 20% 20% 0;*/
+    float: right;
+    pointer-events: none;
+}
+
 
 #undoRow{
-    margin: 25px 0 -45px 0;
+    margin: 25px 0 -55px 0;
 }
 
 

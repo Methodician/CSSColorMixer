@@ -40,7 +40,7 @@ export class AppComponent {
   }
 
   loginTwitter() {
-    alert('Twitter login not implemented yet...');
+    alert('Twitter login not implemented yet... Please use Google');
     /*this.af.auth.login({
       provider: AuthProviders.Twitter,
       method: AuthMethods.Redirect
@@ -48,7 +48,7 @@ export class AppComponent {
   }
 
   loginFacebook() {
-    alert('Facebook login not implemented yet...');
+    alert('Facebook login not implemented yet... Please use Google');
   }
 
   logout() {
