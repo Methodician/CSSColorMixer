@@ -20,6 +20,7 @@ export class PoolComp implements OnInit {
   showHex = true;
   historyIndex = 0;
   colorHistorical = false;
+  undoingOrRedoing = false;
   colorsInitialized = false;
   //inInnerPool = false;
   //inPool = false;
@@ -34,6 +35,8 @@ export class PoolComp implements OnInit {
 
 
   poolColor: IrgbColor = new rgbColor(127, 127, 127);
+  lastColor: IrgbColor;
+
   draggingColor: IrgbColor = null;
   colorPoolHistory: IrgbColor[] = [];
 
@@ -85,6 +88,7 @@ export class PoolComp implements OnInit {
 
   undo() {
     if (this.colorPoolHistory.length > 1) {
+      this.undoingOrRedoing = true;
       if (this.historyIndex < 1) {
         let len = this.colorPoolHistory.length;
         this.historyIndex = len - 2
@@ -98,10 +102,11 @@ export class PoolComp implements OnInit {
       this.pickColor(color);
       this.colorPoolHistory.pop();
     }
-
+    this.undoingOrRedoing = false;
   }
   redo() {
     if (this.colorPoolHistory.length > 1) {
+      this.undoingOrRedoing = true;
       let len = this.colorPoolHistory.length;
       if (this.historyIndex >= len - 1) {
         this.historyIndex = 0
@@ -115,6 +120,7 @@ export class PoolComp implements OnInit {
       this.pickColor(color);
       this.colorPoolHistory.pop();
     }
+    this.undoingOrRedoing = false;
   }
 
   enterPool(e: any) {
@@ -144,7 +150,15 @@ export class PoolComp implements OnInit {
   pickColor(color: IrgbColor) {
     if (!this.poolSet) {
       if (this.draggingColor) {
-        this.setElementColor('colorPoolLeft', this.colorPoolHistory[this.colorPoolHistory.length - 2]);
+        this.lastColor = this.colorPoolHistory[this.colorPoolHistory.length - 2];
+        this.setElementColor('colorPoolLeft', this.lastColor);
+      }
+      if (this.undoingOrRedoing) {
+        if (this.historyIndex == 0)
+          this.lastColor = this.colorPoolHistory[this.colorPoolHistory.length - 1];
+        else this.lastColor = this.colorPoolHistory[this.historyIndex - 1];
+
+        this.setElementColor('colorPoolLeft', this.lastColor);
       }
       this.setElementColor('colorPoolRight', color);
       this.poolColor = color;
@@ -159,7 +173,8 @@ export class PoolComp implements OnInit {
       else if (this.minusOn)
         newColor = this.subtractColors(this.poolColor, color);
       this.setElementColor('colorPoolRight', newColor);
-      this.setElementColor('colorPoolLeft', this.colorPoolHistory[this.colorPoolHistory.length - 1]);
+      this.lastColor = this.colorPoolHistory[this.colorPoolHistory.length - 1]
+      this.setElementColor('colorPoolLeft', this.lastColor);
       this.poolColor = newColor;
     }
     this.colorPoolHistory.push(this.poolColor);
@@ -220,8 +235,12 @@ export class PoolComp implements OnInit {
       this.addOn = false;
   }
 
-  saveColor() {
-    this.colors.push(this.poolColor);
+  saveColor(side: string) {
+    if (side == 'right')
+      this.colors.push(this.poolColor);
+    if (side == 'left')
+      this.colors.push(this.lastColor)
+
   }
   setElementColor(elementId: string, color: IrgbColor) {
     document.getElementById(elementId)
@@ -231,7 +250,7 @@ export class PoolComp implements OnInit {
   resetPool() {
     let freshPool = new rgbColor(127, 127, 127);
     this.poolColor = freshPool;
-    this.setElementColor('colorPool', freshPool);
+    this.setElementColor('colorPoolRight', freshPool);
     this.poolSet = false;
   }
 

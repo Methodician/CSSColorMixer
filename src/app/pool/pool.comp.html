@@ -22,9 +22,9 @@
 						<i (click)="redo()" style="margin-left: 130px;" class="fa fa-repeat"></i>
 					</div>
 				</div>
-				<div id="colorPool" makeDroppable (dragEnter)="enterPool($event)" (dragLeave)="leavePool($event)" (click)="saveColor()">
-					<div id="colorPoolLeft"></div>
-					<div id="colorPoolRight"></div>
+				<div id="colorPool" makeDroppable (dragEnter)="enterPool($event)" (dragLeave)="leavePool($event)">
+					<div id="colorPoolLeft" [class.pointerEventsDisabled]="draggingColor" (click)="saveColor('left')"></div>
+					<div id="colorPoolRight" [class.pointerEventsDisabled]="draggingColor" (click)="saveColor('right')"></div>
 				</div>
 				{{ showHex ? poolColor.hex : poolColor.rgb.slice(3) }}
 			</div>
